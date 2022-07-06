@@ -18,7 +18,7 @@ namespace Hotel.Model.Models
         [StringLength(36)]
         public string CreatedId { get; set; }
 
-        public DateTime CreatedDtm { get; set; }
+        public DateTime CreatedDtm { get; set; }=DateTime.Now;  
 
         [StringLength(36)]
         public string? UpdatedId { get; set; }
