@@ -18,10 +18,10 @@ namespace Hotel.Data.Repositories.IRepo
 
         Task<bool> Add(T entity);
 
-        Task<bool> Update(T entity);
+        T Update(T entity);
 
-        bool Delete(T entity);
+        bool Delete(string id);
 
-        bool UpdateIsActive(string id);
+        T UpdateIsActive(T entity);
     }
 }

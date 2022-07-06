@@ -9,52 +9,83 @@ using System.Threading.Tasks;
 
 namespace Hotel.Data.Repositories.Repo
 {
-    public class Repository<T> : IRepository<T> where T : class 
+    public class Repository<T> : IRepository<T> where T : class
     {
         private readonly ApplicationDbContext _context;
         internal DbSet<T> _dbSet;
 
         public Repository(ApplicationDbContext context)
         {
-            _context = context; 
+            _context = context;
         }
 
         public async Task<bool> Add(T entity)
         {
-          await  _dbSet.AddAsync(entity);
-            return true;    
+            await _dbSet.AddAsync(entity);
+            return true;
         }
 
-        public bool Delete(T entity)
+        public bool Delete(string id)
         {
-            throw new NotImplementedException();
+            T entity = _dbSet.Find(id);
+            _dbSet.Remove(entity);
+            return true;
         }
 
-        public Task<T> Get(string id)
+        public async Task<T> Get(string id)
         {
-            throw new NotImplementedException();
+            return await _dbSet.FindAsync(id);
         }
 
-        public Task<ICollection<T>> GetAll(Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperites = null)
+        public async Task<ICollection<T>> GetAll(Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperites = null)
         {
-            throw new NotImplementedException();
+            IQueryable<T> query = _dbSet;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            if (includeProperites != null)
+            {
+                foreach (var item in includeProperites.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(item);
+                }
+            }
+            if (orderBy != null)
+            {
+                return await orderBy(query).ToListAsync();
+            }
+            return await query.ToListAsync();
         }
 
-        public Task<T> GetFirstOrDefault(Expression<Func<T, bool>> filter = null, string includeProperites = null)
+        public async Task<T> GetFirstOrDefault(Expression<Func<T, bool>> filter = null, string includeProperites = null)
         {
-            throw new NotImplementedException();
+            IQueryable<T> query = _dbSet;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            if (includeProperites != null)
+            {
+                foreach (var item in includeProperites.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(item);
+                }
+            }
+
+            return await query.FirstOrDefaultAsync();
         }
 
-        public Task<bool> Update(T entity)
+        public T Update(T entity)
         {
-            throw new NotImplementedException();
+            _context.Update(entity);
+            return entity;
         }
 
-        public bool UpdateIsActive(string id)
+        public T UpdateIsActive(T entity)
         {
-            throw new NotImplementedException();
+            _context.Entry(entity).State = EntityState.Modified;
+            return entity;
         }
-    }
-    {
     }
 }
