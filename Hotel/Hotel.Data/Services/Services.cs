@@ -20,39 +20,46 @@ namespace Hotel.Data.Services
             _repository = repository;   
         }
 
-        public Task<bool> Add(T entity)
+        public async Task<bool> Add(T entity)
         {
-            throw new NotImplementedException();
+            await _repository.Add(entity);
+            await _unitOfWork.SaveAsync();
+            return true;
         }
 
         public bool Delete(string id)
         {
-            throw new NotImplementedException();
+        _repository.Delete(id);
+            return true;    
         }
 
-        public Task<T> Get(string id)
+        public async Task<T> Get(string id)
         {
-            throw new NotImplementedException();
+           return await _repository.Get(id);
         }
 
-        public Task<ICollection<T>> GetAll(Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperites = null)
+        public async Task<ICollection<T>> GetAll(Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperites = null)
         {
-            throw new NotImplementedException();
+            return await _repository.GetAll(filter, orderBy, includeProperites);    
         }
 
-        public Task<T> GetFirstOrDefault(Expression<Func<T, bool>> filter = null, string includeProperites = null)
+        public async Task<T> GetFirstOrDefault(Expression<Func<T, bool>> filter = null, string includeProperites = null)
         {
-            throw new NotImplementedException();
+            return await _repository.GetFirstOrDefault(filter, includeProperites);  
         }
 
-        public T Update(T entity)
+        public  T Update(T entity)
         {
-            throw new NotImplementedException();
+          var newEntity=  _repository.Update(entity); 
+            _unitOfWork.Save();
+            return newEntity;
         }
 
         public T UpdateIsActive(T entity)
         {
-            throw new NotImplementedException();
+            var newEntity = _repository.UpdateIsActive(entity);
+            _unitOfWork.Save();
+            return newEntity;
         }
     }
 }
