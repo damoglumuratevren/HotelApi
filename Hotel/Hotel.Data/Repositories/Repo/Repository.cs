@@ -1,4 +1,5 @@
 ﻿using Hotel.Data.Repositories.IRepo;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,20 @@ using System.Threading.Tasks;
 
 namespace Hotel.Data.Repositories.Repo
 {
-    public class Repository<T> : IRepository<T> where T : class MyClass
+    public class Repository<T> : IRepository<T> where T : class 
     {
-        public Task<bool> Add(T entity)
+        private readonly ApplicationDbContext _context;
+        internal DbSet<T> _dbSet;
+
+        public Repository(ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context; 
+        }
+
+        public async Task<bool> Add(T entity)
+        {
+          await  _dbSet.AddAsync(entity);
+            return true;    
         }
 
         public bool Delete(T entity)
