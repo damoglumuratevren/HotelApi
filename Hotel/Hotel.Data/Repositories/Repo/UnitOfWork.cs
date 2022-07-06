@@ -1,6 +1,6 @@
 ﻿using Hotel.Data.Repositories.IRepo;
-using Hotel.Data.Repositories.IRepo.IPersonelTypeRp;
-using Hotel.Data.Repositories.Repo.PersonelTypeRp;
+using Hotel.Data.Repositories.IRepo.IPersonelRp;
+using Hotel.Data.Repositories.Repo.PersonelRp;
 using System;
 using System.Collections.Generic;
 using System.Linq;

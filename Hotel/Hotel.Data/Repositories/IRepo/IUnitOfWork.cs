@@ -1,4 +1,5 @@
-﻿using Hotel.Data.Repositories.IRepo.IPersonelTypeRp;
+﻿
+using Hotel.Data.Repositories.IRepo.IPersonelRp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
