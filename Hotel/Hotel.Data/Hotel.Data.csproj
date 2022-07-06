@@ -19,4 +19,8 @@
     <ProjectReference Include="..\Hotel.Model\Hotel.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\IService\PersonelSv\" />
+  </ItemGroup>
+
 </Project>

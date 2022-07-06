@@ -11,10 +11,11 @@ namespace Hotel.Data.Repositories.Repo.PersonelRp
     public class PersonelTypeRepository : Repository<PersonelType>, IPersonelTypeRepository
     {
         private ApplicationDbContext _context;
+
         public PersonelTypeRepository(ApplicationDbContext context) : base(context)
         {
-            _context=context;
-        }
+            _context = context;
 
+        }
     }
 }

@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hotel.Data.Repositories.IRepo.IPersonelRp
+namespace Hotel.Data.Services.IService.IPersonelSv
 {
-    public interface IPersonelTypeRepository: IRepository<PersonelType>
+    public interface IPersonelTypeService:IService<PersonelType>
     {
     }
 }

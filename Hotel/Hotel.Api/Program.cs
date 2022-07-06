@@ -1,3 +1,7 @@
+using Hotel.Data.Repositories.IRepo;
+using Hotel.Data.Repositories.IRepo.IPersonelRp;
+using Hotel.Data.Repositories.Repo;
+using Hotel.Data.Repositories.Repo.PersonelRp;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hotel.Api
@@ -7,6 +11,10 @@ namespace Hotel.Api
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddAutoMapper(typeof(Program));
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            builder.Services.AddScoped<IPersonelTypeRepository, PersonelTypeRepository>();    
 
             // Add services to the container. 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
